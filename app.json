@@ -1,8 +1,8 @@
 {
-  "name": "DANUWA-MD",
-  "description": "Javascript WhatsApp bot made by Danuka Dissanayake",
-  "logo": "https://github.com/DANUWA-MD/DANUWA-MD/blob/main/images/DANUWA-MD.png?raw=true",
-  "keywords": ["DANUWA-MD"],
+  "name": "KING_MAFIA-MD",
+  "description": "KING_MAFIA-MD WhatsApp bot made by Imesh Sandeepa",
+  "logo": "https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251206-WA0029.jpg?raw=true",
+  "keywords": ["KING_MAFIA-MD"],
   "success_url": "/",
 
   "env": {
