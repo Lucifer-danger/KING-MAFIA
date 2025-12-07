@@ -1,4 +1,4 @@
-const os = require('os');
+const { cmd, commands } = require('../command');
 const now = require('performance-now');
 
 function formatTime(seconds) {
