@@ -5,13 +5,13 @@ cmd(
   {
     pattern: "fb",
     alias: ["facebook"],
-    react: "✅",
+    react: "⭕",
     desc: "Download Facebook Video",
     category: "download",
     filename: __filename,
   },
   async (
-    danuwa,
+    king,
     mek,
     m,
     {
@@ -63,18 +63,18 @@ Your fb video
 👻 *Quality*: ${qualityText}
 `;
 
-      await danuwa.sendMessage(
+      await king.sendMessage(
         from,
         {
           image: {
-            url: "https://github.com/DANUWA-MD/DANUWA-MD/blob/main/images/fbdownloader.png?raw=true",
+            url: "https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251207-WA0009.jpg",
           },
           caption: desc,
         },
         { quoted: mek }
       );
 
-      await danuwa.sendMessage(
+      await king.sendMessage(
         from,
         {
           video: { url: bestQualityUrl },
@@ -83,7 +83,7 @@ Your fb video
         { quoted: mek }
       );
 
-      return reply("Thank you for using DANUWA-MD");
+      return reply("Thank you for using KING_MAFIA-MD");
     } catch (e) {
       console.error(e);
       reply(`*Error:* ${e.message || e}`);
