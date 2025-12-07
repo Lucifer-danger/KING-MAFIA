@@ -67,7 +67,7 @@ Your fb video
         from,
         {
           image: {
-            url: "https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251207-WA0009.jpg",
+            url: "https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251207-WA0009.jpg?raw=true",
           },
           caption: desc,
         },
