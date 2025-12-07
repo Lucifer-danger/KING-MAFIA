@@ -3,15 +3,15 @@ const yts = require("yt-search");
 
 cmd(
   {
-    pattern: "yts",
+    pattern: "yt",
     alias: ["yts", "youtubesearch"],
-    react: "🔎",
+    react: "⭕",
     desc: "Search YouTube videos",
     category: "search",
     filename: __filename,
   },
   async (
-    danuwa,
+    king,
     mek,
     m,
     {
@@ -29,10 +29,10 @@ cmd(
       const search = await yts(q);
 
       if (!search || !search.all || search.all.length === 0) {
-        return reply("*No results found on YouTube.* ☹️");
+        return reply("❌ *No results found on YouTube.*");
       }
 
-      const results = search.videos.slice(0, 10); 
+      const results = search.videos.slice(0, 5); 
       let formattedResults = results.map((v, i) => (
         `🎬 *${i + 1}. ${v.title}*\n📅 ${v.ago} | ⌛ ${v.timestamp} | 👁️ ${v.views.toLocaleString()} views\n🔗 ${v.url}`
       )).join("\n\n");
@@ -44,11 +44,11 @@ Your youtube search results
 ${formattedResults}
    `;
 
-      await danuwa.sendMessage(
+      await king.sendMessage(
         from,
         {
           image: {
-            url: "https://github.com/DANUWA-MD/DANUWA-MD/blob/main/images/yts.png?raw=true",
+            url: "https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251207-WA0008.jpg",
           },
           caption,
         },
