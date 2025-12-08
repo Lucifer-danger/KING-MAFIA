@@ -87,7 +87,8 @@ async function connectToWA() {
     } else if (connection === 'open') {
       console.log('✅ KING_MAFIA-MD connected to WhatsApp');
 
-      const up = `🤖 *KING_MAFIA-MD Connected Successfully!*\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`;
+      const up = `╭━━━❒ ${applyStyle("KING_MAFIA-MD Connected", 10)} ❒━━━╮\n┃ ⏰ *Time:* ${time.format('HH:mm:ss')}\n┃ 🌍 *Timezone:* ${config.timezone || 'Africa/Lagos'}\n┃ 📅 *Date:* ${time.format('DD/MM/YYYY')}\n┃ 👑 *Owner:* ${botOwner}\n╰━━━━━━❒ ${applyStyle("Version 1.0.0", 10)} ❒━━━━━╯\n\n`;
+            
       await king.sendMessage(ownerNumber[0] + "@s.whatsapp.net", {
         image: { url: `https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251206-WA0029.jpg?raw=true` },
         caption: up
