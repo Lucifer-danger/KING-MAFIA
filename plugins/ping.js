@@ -1,12 +1,14 @@
-// plugins/main/ping.js
+const { fetchJson } = require('../lib/functions');
+
 module.exports = {
-    name: 'ping',
-    description: 'Checks bot latency.',
-    category: 'main',
-    async execute(sock, msg) {
-        const start = Date.now();
-        const sentMsg = await sock.sendMessage(msg.key.remoteJid, { text: 'Pinging...' });
-        const latency = Date.now() - start;
-        await sock.sendMessage(msg.key.remoteJid, { text: `Pong! Latency: ${latency}ms`, edit: sentMsg.key });
-    }
+  name: 'ping',
+  category: 'general',
+  description: 'Checks the bot\'s response time.',
+  async execute(conn, chat, args, msg) {
+    const startTime = Date.now();
+    const message = await conn.sendMessage(chat.key.remoteJid, { text: '🏓 Pinging...' });
+    const endTime = Date.now();
+    const ping = endTime - startTime;
+    await conn.sendMessage(chat.key.remoteJid, { text: `🏓 Pong!\n⏱️ Latency: ${ping}ms`, edit: message.key });
+  }
 };
