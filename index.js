@@ -182,7 +182,7 @@ async function connectToWA() {
             await conn.sendMessage(chat.remoteJid, { text: '❌ An internal error occurred while running that command.' });
         }
     }
-}
+});
     const replyText = body;
     for (const handler of replyHandlers) {
       if (handler.filter(replyText, { sender, message: mek })) {
