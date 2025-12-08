@@ -87,7 +87,7 @@ async function connectToWA() {
     } else if (connection === 'open') {
       console.log('✅ KING_MAFIA-MD connected to WhatsApp');
 
-      const up = `KING_MAFIA-MD connected ✔️\n\nPREFIX: ${prefix}`;
+      const up = `🤖 *KING_MAFIA-MD Connected Successfully!*\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`;
       await king.sendMessage(ownerNumber[0] + "@s.whatsapp.net", {
         image: { url: `https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251206-WA0029.jpg?raw=true` },
         caption: up
