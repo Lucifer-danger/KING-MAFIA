@@ -87,7 +87,7 @@ async function connectToWA() {
     } else if (connection === 'open') {
       console.log('✅ KING_MAFIA-MD connected to WhatsApp');
 
-      const up = `╭━━━❒ KING_MAFIA-MD Connected  ❒━━━╮\n┃ ⏰ *Time:* ${new Date().toLocaleString()}\n┃ 👑 *Owner:* ${botOwner}\n╰━━━━━━❒   Version 1.0.0   ❒━━━━━╯\n\n`;
+      const up = `╭━━━❒ KING_MAFIA-MD Connected  ❒━━━╮\n┃ ⏰ *Time:* ${new Date().toLocaleString()}\n┃ 👑 *Owner:* IMESH SANDEEPA\n╰━━━━━━❒   Version 1.0.0   ❒━━━━━╯\n\n`;
             
       await king.sendMessage(ownerNumber[0] + "@s.whatsapp.net", {
         image: { url: `https://github.com/Lucifer-danger/KING-MAFIA/blob/main/images/IMG-20251206-WA0029.jpg?raw=true` },
