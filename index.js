@@ -14,6 +14,7 @@ const express = require('express');
 const axios = require('axios');
 const path = require('path');
 const qrcode = require('qrcode-terminal');
+const { loadPlugins } = require('./lib/handler');
 
 const config = require('./config');
 const { sms, downloadMediaMessage } = require('./lib/msg');
@@ -160,33 +161,8 @@ async function connectToWA() {
         }
       }
     }
-
-    const replyText = body;
-    for (const handler of replyHandlers) {
-      if (handler.filter(replyText, { sender, message: mek })) {
-        try {
-          await handler.function(king, mek, m, {
-            from, quoted: mek, body: replyText, sender, reply,
-          });
-          break;
-        } catch (e) {
-          console.log("Reply handler error:", e);
-        }
-      }
-    }
-  });
-}
-
-const { loadPlugins } = require('./lib/handler');
-const path = require('path');
-
-// ... other setup code (connecting to WhatsApp, etc.)
-
-// Load all plugins
-const plugins = loadPlugins(path.join(__dirname, 'plugins'));
-
-// Example of how to handle an incoming message
-conn.ev.on('messages.upsert', async ({ messages }) => {
+    const plugins = loadPlugins(path.join(__dirname, 'plugins'));
+    king.ev.on('messages.upsert', async ({ messages }) => {
     const msg = messages[0];
     if (!msg.message) return;
     const chat = msg.key;
@@ -206,7 +182,22 @@ conn.ev.on('messages.upsert', async ({ messages }) => {
             await conn.sendMessage(chat.remoteJid, { text: '❌ An internal error occurred while running that command.' });
         }
     }
-});
+}
+    const replyText = body;
+    for (const handler of replyHandlers) {
+      if (handler.filter(replyText, { sender, message: mek })) {
+        try {
+          await handler.function(king, mek, m, {
+            from, quoted: mek, body: replyText, sender, reply,
+          });
+          break;
+        } catch (e) {
+          console.log("Reply handler error:", e);
+        }
+      }
+    }
+  });
+}
 
 ensureSessionFile();
 
