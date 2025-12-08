@@ -177,6 +177,37 @@ async function connectToWA() {
   });
 }
 
+const { loadPlugins } = require('./lib/handler');
+const path = require('path');
+
+// ... other setup code (connecting to WhatsApp, etc.)
+
+// Load all plugins
+const plugins = loadPlugins(path.join(__dirname, 'plugins'));
+
+// Example of how to handle an incoming message
+conn.ev.on('messages.upsert', async ({ messages }) => {
+    const msg = messages[0];
+    if (!msg.message) return;
+    const chat = msg.key;
+    const messageContent = msg.message.conversation || msg.message.extendedTextMessage?.text;
+    
+    if (!messageContent || !messageContent.startsWith('.')) return; // Assuming prefix is '.'
+
+    const [commandName, ...args] = messageContent.slice(1).trim().split(' ');
+    const plugin = plugins.get(commandName.toLowerCase());
+
+    if (plugin) {
+        console.log(`Executing command: ${plugin.name}`);
+        try {
+            await plugin.execute(conn, chat, args, msg);
+        } catch (error) {
+            console.error(`Error executing ${plugin.name}:`, error);
+            await conn.sendMessage(chat.remoteJid, { text: '❌ An internal error occurred while running that command.' });
+        }
+    }
+});
+
 ensureSessionFile();
 
 app.get("/", (req, res) => {
