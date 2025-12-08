@@ -1,11 +1,11 @@
 // plugins/ping.js
 
-
- @param {import('@adiwajshing/baileys').WASocket} sock The socket connection of the bot.
- @param {import('@adiwajshing/baileys').proto.IWebMessageInfo} msg The message object that triggered the command.
- @param {string[]} args The arguments passed along with the command.
- @param {import('../config.js').Config} config The bot's configuration object.
- 
+/**
+ * @param {import('@adiwajshing/baileys').WASocket} sock The socket connection of the bot.
+ * @param {import('@adiwajshing/baileys').proto.IWebMessageInfo} msg The message object that triggered the command.
+ * @param {string[]} args The arguments passed along with the command.
+ * @param {import('../config.js').Config} config The bot's configuration object.
+ */
 async function execute(sock, msg, args, config) {
     const startTime = Date.now();
 
