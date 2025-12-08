@@ -1,47 +1,37 @@
-const { cmd, commands } = require('../command');
-const now = require('performance-now');
+// plugins/ping.js
 
-function formatTime(seconds) {
-    const days = Math.floor(seconds / (24 * 60 * 60));
-    seconds = seconds % (24 * 60 * 60);
-    const hours = Math.floor(seconds / (60 * 60));
-    seconds = seconds % (60 * 60);
-    const minutes = Math.floor(seconds / 60);
-    seconds = Math.floor(seconds % 60);
 
-    let time = '';
-    if (days > 0) time += `${days}d `;
-    if (hours > 0) time += `${hours}h `;
-    if (minutes > 0) time += `${minutes}m `;
-    if (seconds > 0 || time === '') time += `${seconds}s`;
+ @param {import('@adiwajshing/baileys').WASocket} sock The socket connection of the bot.
+ @param {import('@adiwajshing/baileys').proto.IWebMessageInfo} msg The message object that triggered the command.
+ @param {string[]} args The arguments passed along with the command.
+ @param {import('../config.js').Config} config The bot's configuration object.
+ 
+async function execute(sock, msg, args, config) {
+    const startTime = Date.now();
 
-    return time.trim();
+    // Send a temporary message first
+    const sentMsg = await sock.sendMessage(
+        msg.key.remoteJid, 
+        { text: '🏓 Pinging...' }, 
+        { quoted: msg }
+    );
+
+    // Calculate the round-trip latency
+    const latency = Date.now() - startTime;
+
+    // Edit the temporary message with the final result
+    await sock.sendMessage(
+        msg.key.remoteJid, 
+        { 
+            text: `*Pong!*\n\n⚡ Latency: ${latency}ms`,
+            edit: sentMsg.key 
+        }
+    );
 }
 
-async function pingCommand(sock, chatId, message) {
-    try {
-        const start = Date.now();
-        await sock.sendMessage(chatId, { text: 'Pong!' }, { quoted: message });
-        const end = Date.now();
-        const ping = Math.round((end - start) / 2);
-
-        const uptimeInSeconds = process.uptime();
-        const uptimeFormatted = formatTime(uptimeInSeconds);
-
-        const botInfo = `
-┏━━〔 🤖 KING_MAFIA-MD 〕━━┓
-┃ 🚀 Ping     : ${ping} ms
-┃ ⏱️ Uptime   : ${uptimeFormatted}
-┃ 🔖 Version  : v${settings.version}
-┗━━━━━━━━━━━━━━━━━━━┛`.trim();
-
-        // Reply to the original message with the bot info
-        await sock.sendMessage(chatId, { text: botInfo},{ quoted: message });
-
-    } catch (error) {
-        console.error('Error in ping command:', error);
-        await sock.sendMessage(chatId, { text: '❌ Failed to get bot status.' });
-    }
-}
-
-module.exports = pingCommand;
+module.exports = {
+    name: 'ping',
+    description: 'Checks the bot\'s response latency.',
+    category: 'main', // Optional: for organizing commands in a menu
+    execute: execute
+};
